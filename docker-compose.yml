@@ -1,0 +1,6 @@
+services:
+  wallet:
+    build: .
+    volumes:
+      - ./wallet:/app/wallet
+    command: ["help"]
