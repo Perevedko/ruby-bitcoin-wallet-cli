@@ -4,4 +4,4 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 COPY . .
 RUN mkdir -p -m 700 wallet
-ENTRYPOINT ["ruby", "btc_wallet.rb"]
+ENTRYPOINT ["ruby", "cli.rb"]

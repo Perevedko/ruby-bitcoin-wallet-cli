@@ -3,12 +3,15 @@ require 'bitcoin'
 require 'thor'
 require 'json'
 require 'bigdecimal'
-require 'pry'
-require './mempool_space_api_client'
+# require 'pry'
+require_relative 'mempool_space_api_client'
+require_relative 'helpers'
 
 Bitcoin.chain_params = :signet
 
 class WalletCLI < Thor
+  include Helpers
+
   FEE = BigDecimal('0.00001')
   private_constant :FEE
 
@@ -54,10 +57,6 @@ class WalletCLI < Thor
 
   private
 
-  def key_path
-    @key_path ||= File.join(__dir__, 'wallet', 'key.dat')
-  end
-
   def with_key
     abort "First generate a key with 'generate' command" unless File.exist?(key_path)
 
@@ -71,7 +70,6 @@ class WalletCLI < Thor
   
     add_inputs(transaction, details)
     add_outputs_and_change(key, transaction, details, recipient, amount_sat, fee_sat)
-    binding.pry
     sign(key, transaction, details)
   
     transaction
@@ -120,14 +118,4 @@ class WalletCLI < Thor
   rescue
     abort "Invalid address format"
   end
-
-  def satoshis_to_btc(sat)
-    sat.to_f / 100_000_000
-  end
-
-  def btc_to_satoshis(btc)
-    (btc * 100_000_000).to_i
-  end
 end
-
-WalletCLI.start(ARGV)
