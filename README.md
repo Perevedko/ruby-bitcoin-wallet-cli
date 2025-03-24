@@ -1,15 +1,15 @@
 Usages
 
 ```shell
-# First, build it
-docker-compose build
+# First, install dependencies
+bundle install
 
-# Generate new private key
-docker-compose run --rm wallet generate
+# Then, generate a new private key
+ruby cli.rb generate
 
-# Check balance
-docker-compose run --rm wallet balance
+# Then, you can check balance
+ruby cli.rb balance
 
-# Send funds
-docker-compose run --rm wallet send [address] [amount]
+# And send funds
+ruby cli.rb send [address] [amount]
 ```
