@@ -3,7 +3,6 @@ require 'bitcoin'
 require 'thor'
 require 'json'
 require 'bigdecimal'
-# require 'pry'
 require_relative 'mempool_space_api_client'
 require_relative 'helpers'
 
